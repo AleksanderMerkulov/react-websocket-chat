@@ -2,10 +2,14 @@ import './App.css'
 import socketIO from 'socket.io-client'
 import {Outlet} from "react-router-dom";
 import styled from "styled-components";
+import SocketIOProvider, {useSocketIO} from "./context/SocketContext.jsx";
 
 const socket = socketIO.connect('http://127.0.0.1:5000')
 
 function App() {
+
+    const {setSocket} = useSocketIO()
+    setSocket(socket)
 
     const Layout = styled.div`
       width: 100%;
@@ -39,16 +43,16 @@ function App() {
           <Header>
               <img src="/vite.svg" alt=""/>
           </Header>
-          <ContentLayout>
-              <Aside>
-                  <ul>
-                      <li>fdf</li>
-                  </ul>
-              </Aside>
-              <Content>
-                  <Outlet/>
-              </Content>
-          </ContentLayout>
+          {/*<ContentLayout>*/}
+          {/*        <Aside>*/}
+          {/*            <ul>*/}
+          {/*                <li>fdf</li>*/}
+          {/*            </ul>*/}
+          {/*        </Aside>*/}
+                  <Content>
+                      <Outlet/>
+                  </Content>
+              {/*</ContentLayout>*/}
       </Layout>
   )
 }
