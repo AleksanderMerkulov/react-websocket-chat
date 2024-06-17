@@ -16,6 +16,7 @@ function App() {
       display: grid;
       grid-template-rows: auto 1fr auto;
       min-height: 100vh;
+      
     `
     const Content = styled.main`
       width: 100%;
@@ -31,7 +32,11 @@ function App() {
       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
       margin-bottom: 10px;
       padding: 5px 0;
-      display: flex;
+      
+      .container{
+        display: flex;
+        
+      }
     `
     const Aside = styled.aside`
       width: 300px;
@@ -41,18 +46,15 @@ function App() {
   return (
       <Layout>
           <Header>
-              <img src="/vite.svg" alt=""/>
+              <div className="container">
+                  <img src="/vite.svg" alt=""/>
+              </div>
           </Header>
-          {/*<ContentLayout>*/}
-          {/*        <Aside>*/}
-          {/*            <ul>*/}
-          {/*                <li>fdf</li>*/}
-          {/*            </ul>*/}
-          {/*        </Aside>*/}
-                  <Content>
-                      <Outlet/>
-                  </Content>
-              {/*</ContentLayout>*/}
+          <Content>
+              <div className="container">
+                  <Outlet/>
+              </div>
+          </Content>
       </Layout>
   )
 }

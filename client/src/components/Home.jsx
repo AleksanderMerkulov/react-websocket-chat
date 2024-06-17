@@ -39,8 +39,6 @@ export default function Home(){
         navigate('/chat')
     }
 
-
-
     return (
         <>
             <Form onSubmit={handleSubmit}>

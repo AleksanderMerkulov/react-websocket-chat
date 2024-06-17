@@ -5,21 +5,19 @@ const Sidebar = () => {
 
     const SidebarContainer = styled.aside`
       width: 300px;
-      background: aliceblue;
       margin-right: 5px;
       border-right: 1px solid black;
     `
 
     const ChatContainer = styled.ul`
       padding: 0;
+      margin: 0;
     `
 
     const ChatItem = styled.li`
       list-style: none;
-      padding: 10px 20px;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-      margin: 10px 10px 0 10px;
-      border-radius: 4px;
+      padding: 10px 20px 10px 10px;
+      //margin-top: 10px;
       transition: 0.15s;
 
       &:first-child {
@@ -27,14 +25,18 @@ const Sidebar = () => {
       }
 
       &:hover {
-        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+        background: #e7e7e7;
         cursor: pointer;
       }
     `
 
+    const Title = styled.h1`
+      margin: 0 0 10px 0;
+    `
+
     return (
         <SidebarContainer>
-            <h1>Ваши чаты</h1>
+            <Title>Ваши чаты</Title>
             <ChatContainer>
                 <ChatItem>user1</ChatItem>
                 <ChatItem>user2</ChatItem>

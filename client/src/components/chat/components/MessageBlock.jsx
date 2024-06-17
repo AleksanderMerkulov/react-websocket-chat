@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
+import {useSocketIO} from "../../../context/SocketContext.jsx";
 
 const Form = styled.form`
   display: flex;
@@ -48,9 +49,31 @@ const Button = styled.button`
 `
 
 const MessageBlock = () => {
+
+    const [message, setMessage] = useState('')
+    const { socket, messages, setMessages} = useSocketIO()
+
+
+    function handleSend(e){
+        e.preventDefault()
+        const currMessage ={
+            user:localStorage.getItem('user'),
+            message:message
+        }
+        console.log(currMessage)
+        setMessages(prevMessages => [...prevMessages, currMessage])
+        setMessage('')
+        console.log(messages)
+    }
+
     return (
-        <Form>
-            <input type="text" id={'messageInput'}/>
+        <Form onSubmit={handleSend}>
+            <input
+                type="text"
+                id={'messageInput'}
+                value={message}
+                onChange={e=>setMessage(e.target.value)}
+            />
             <Button>Отправить</Button>
         </Form>
     );

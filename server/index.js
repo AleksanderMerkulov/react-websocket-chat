@@ -26,6 +26,11 @@ socketIO.on('connection', (socket)=>{
     })
 })
 
+socketIO.on('message', (message) => {
+    console.log('Message received: ', message);
+    io.emit('message', message); // Broadcast the message to all clients
+});
+
 
 http.listen(PORT, ()=>{
     console.log('Server is working')

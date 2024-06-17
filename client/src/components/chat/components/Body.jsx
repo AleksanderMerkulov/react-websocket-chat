@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled, {css} from "styled-components";
+import {useNavigate} from "react-router-dom";
 
 const Header = styled.div`
         
@@ -27,12 +28,18 @@ const Message = styled.div`
 
 const Body = () => {
 
+    const navigate = useNavigate()
 
+    function handleLeave(){
+        localStorage.removeItem('user')
+        navigate('/')
+    }
 
     return (
         <>
             <Header>
-                <button>Покинуть чат</button>
+                <button
+                    onClick={handleLeave}>Покинуть чат</button>
             </Header>
             <MessageContainer>
                 <Message>
