@@ -1,6 +1,29 @@
 import {useNavigate} from 'react-router-dom'
 import {useState} from "react";
 import {useSocketIO} from "../context/SocketContext.jsx";
+import styled from "styled-components";
+
+const Form = styled.form`
+      width: 20%;
+      margin: 0 auto;
+      
+      & .form-container{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+      }
+    `
+
+const Button = styled.button`
+  background: #c4c4fd;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 6px 15px;
+
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+`
 
 export default function Home(){
 
@@ -16,15 +39,18 @@ export default function Home(){
         navigate('/chat')
     }
 
+
+
     return (
         <>
-        <div>Homepage</div>
-            <form onSubmit={handleSubmit}>
-                <h2>Войти в чат</h2>
-                <label htmlFor="user"></label>
-                <input type="text" id='user' value={user} onChange={(e)=>setUser(e.target.value)}/>
-                <button type={'submit'}>Войти</button>
-            </form>
+            <Form onSubmit={handleSubmit}>
+                <h2>Авторизация</h2>
+                <div className={'form-container'}>
+                    <label htmlFor="user">Имя</label>
+                    <input placeholder={'Введите имя'} type="text" id='user' value={user} onChange={(e)=>setUser(e.target.value)}/>
+                </div>
+                <Button type={'submit'} disabled={user === ''?'disabled':null}>Войти</Button>
+            </Form>
         </>
 
     )
