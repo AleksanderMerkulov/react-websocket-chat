@@ -62,8 +62,12 @@ const MessageBlock = () => {
         }
         console.log(currMessage)
         setMessages(prevMessages => [...prevMessages, currMessage])
+        socket.emit('message', {
+            ...currMessage,
+            id: `${socket.id}`,
+            socketID: socket.id
+        })
         setMessage('')
-        console.log(messages)
     }
 
     return (

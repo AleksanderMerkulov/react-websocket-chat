@@ -21,15 +21,17 @@ app.get('api', (req, res)=>{
 
 socketIO.on('connection', (socket)=>{
     console.log(`${socket.id} user is connected`)
+    socket.on('message', (message) => {
+        console.log('Message received: ', message);
+        console.log('message', message)
+        // io.emit('message', message); // Broadcast the message to all clients
+    });
     socket.on('disconnect', (socket)=>{
         console.log(`${socket.id} user disconnected`)
     })
 })
 
-socketIO.on('message', (message) => {
-    console.log('Message received: ', message);
-    io.emit('message', message); // Broadcast the message to all clients
-});
+
 
 
 http.listen(PORT, ()=>{
