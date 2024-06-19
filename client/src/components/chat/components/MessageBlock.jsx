@@ -48,7 +48,9 @@ const Button = styled.button`
 
 `
 
-const MessageBlock = () => {
+export default function MessageBlock() {
+    // отвечает за форму ввода и отправки сообщения
+    // создает экземляр сообщения, отправляет на сервер и сохраняет его в список сообщений диалога
 
     const [message, setMessage] = useState('')
     const { socket, messages, setMessages} = useSocketIO()
@@ -58,9 +60,10 @@ const MessageBlock = () => {
         e.preventDefault()
         const currMessage ={
             user:localStorage.getItem('user'),
-            message:message
+            message:message,
+            id: socket.id,
+            socketID: socket.id
         }
-        console.log(currMessage)
         setMessages(prevMessages => [...prevMessages, currMessage])
         socket.emit('message', {
             ...currMessage,
@@ -82,5 +85,3 @@ const MessageBlock = () => {
         </Form>
     );
 };
-
-export default MessageBlock;

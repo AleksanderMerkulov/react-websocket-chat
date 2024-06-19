@@ -7,9 +7,19 @@ import SocketIOProvider, {useSocketIO} from "./context/SocketContext.jsx";
 const socket = socketIO.connect('http://127.0.0.1:5000')
 
 function App() {
+    // Отвечает за инициализацию сокета и его передачу в SocketContext
+    //  также ждёт сообщения от сервера и если оно не наше, то добавляет его в массив сообщений
+    //  также здесь простраивается основной layout вёрстки
 
-    const {setSocket} = useSocketIO()
+
+    const {setSocket, setMessages, messages} = useSocketIO()
     setSocket(socket)
+    socket.on('response', (newMessage)=> {
+        if (newMessage.id !== socket.id){
+            setMessages([...messages, newMessage])
+        }
+    })
+
 
     const Layout = styled.div`
       width: 100%;

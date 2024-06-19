@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled, {css} from "styled-components";
 import {useNavigate} from "react-router-dom";
+import {useSocketIO} from "../../../context/SocketContext.jsx";
 
 const Header = styled.div`
         
@@ -27,8 +28,11 @@ const Message = styled.div`
 `
 
 const Body = () => {
+    //отвечает за рендер сообщений из массива messages и выход из чата
 
     const navigate = useNavigate()
+    const {socket, messages, setMessages} = useSocketIO()
+
 
     function handleLeave(){
         localStorage.removeItem('user')
@@ -50,6 +54,25 @@ const Body = () => {
                     <div className={'message-name'}>Dimoooon</div>
                     <p>Проблема с вводом данных в input может возникать из-за того, что компонент Form переопределяется при каждом рендере. Это может приводить к потере фокуса на элементе ввода.</p>
                 </Message>
+
+                {
+                    messages.map((message)=>{
+                        if (message.socketID === socket.id)
+                            return (
+                                <Message>
+                                    <div className={'message-name'}>Вы</div>
+                                    <p>{message.message}</p>
+                                </Message>
+                            )
+                        else
+                            return (
+                                <Message toMe>
+                                    <div className={'message-name'}>Вы</div>
+                                    <p>{message.message}</p>
+                                </Message>
+                            )
+                    })
+                }
 
             </MessageContainer>
 
