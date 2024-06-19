@@ -20,17 +20,20 @@ app.get('api', (req, res)=>{
 })
 
 socketIO.on('connection', (socket)=>{
-    console.log(`${socket.id} user is connected`)
     socket.on('message', (message) => {
-        console.log('Message received: ', message);
         console.log('message', message)
-        // io.emit('message', message); // Broadcast the message to all clients
+        socketIO.emit('response', message)
     });
+
+    socket.on('join_to_chats', (user)=>{
+        console.log('user join', user)
+        socketIO.emit('join_to_online', user)
+    })
+
     socket.on('disconnect', (socket)=>{
         console.log(`${socket.id} user disconnected`)
     })
 })
-
 
 
 

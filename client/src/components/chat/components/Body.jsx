@@ -16,7 +16,7 @@ const Message = styled.div`
   padding: 10px;
 
   width: 80%;
-  margin-left: ${props => props.toMe ? 'auto' : '0'};
+  margin-left: ${props => props.$to_me ? 'auto' : '0'};
   margin-bottom: 10px;
 
   background: antiquewhite;
@@ -50,7 +50,7 @@ const Body = () => {
                     <div className={'message-name'}>Вы</div>
                     <p>Решение заключается в том, чтобы вынести стилизованные компоненты за пределы компонента Home. Это предотвратит их переопределение при каждом рендере.</p>
                 </Message>
-                <Message toMe>
+                <Message to_me="true">
                     <div className={'message-name'}>Dimoooon</div>
                     <p>Проблема с вводом данных в input может возникать из-за того, что компонент Form переопределяется при каждом рендере. Это может приводить к потере фокуса на элементе ввода.</p>
                 </Message>
@@ -66,7 +66,7 @@ const Body = () => {
                             )
                         else
                             return (
-                                <Message toMe>
+                                <Message to_me="true">
                                     <div className={'message-name'}>Вы</div>
                                     <p>{message.message}</p>
                                 </Message>

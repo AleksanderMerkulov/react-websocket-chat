@@ -4,20 +4,22 @@ import Body from "./components/Body.jsx";
 import MessageBlock from "./components/MessageBlock.jsx";
 import styled from "styled-components";
 
-const ChatPage = () => {
-
-    const MessageContainer = styled.div`
+const MessageContainer = styled.div`
       width: 100%;
       height: 100%;
       display: inline-flex;
     `
 
-    const ChatContainer = styled.div`
+const ChatContainer = styled.div`
       width: 100%;
       margin-top: auto;
       margin-bottom: 20px;
       
     `
+
+const ChatPage = () => {
+
+
 
     return (
         <MessageContainer>

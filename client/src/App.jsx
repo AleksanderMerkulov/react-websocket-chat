@@ -3,39 +3,26 @@ import socketIO from 'socket.io-client'
 import {Outlet} from "react-router-dom";
 import styled from "styled-components";
 import SocketIOProvider, {useSocketIO} from "./context/SocketContext.jsx";
+import {useEffect} from "react";
 
 const socket = socketIO.connect('http://127.0.0.1:5000')
 
-function App() {
-    // Отвечает за инициализацию сокета и его передачу в SocketContext
-    //  также ждёт сообщения от сервера и если оно не наше, то добавляет его в массив сообщений
-    //  также здесь простраивается основной layout вёрстки
 
-
-    const {setSocket, setMessages, messages} = useSocketIO()
-    setSocket(socket)
-    socket.on('response', (newMessage)=> {
-        if (newMessage.id !== socket.id){
-            setMessages([...messages, newMessage])
-        }
-    })
-
-
-    const Layout = styled.div`
+const Layout = styled.div`
       width: 100%;
       display: grid;
       grid-template-rows: auto 1fr auto;
       min-height: 100vh;
       
     `
-    const Content = styled.main`
+const Content = styled.main`
       width: 100%;
     `
-    const ContentLayout = styled.div`
+const ContentLayout = styled.div`
       width: 100%;
       display: inline-flex;
     `
-    const Header = styled.header`
+const Header = styled.header`
       width: 100%;
       grid-row: 1;
       height: 50px;
@@ -48,9 +35,33 @@ function App() {
         
       }
     `
-    const Aside = styled.aside`
+const Aside = styled.aside`
       width: 300px;
     `
+
+function App() {
+    // Отвечает за инициализацию сокета и его передачу в SocketContext
+    //  также ждёт сообщения от сервера и если оно не наше, то добавляет его в массив сообщений
+    //  также здесь простраивается основной layout вёрстки
+
+
+    const {setSocket, setMessages, messages, setUsersOnline} = useSocketIO()
+
+    useEffect(() => {
+        function f(){
+            setSocket(socket)
+            socket.on('response', (newMessage)=> {
+                if (newMessage.id !== socket.id){
+                    setMessages([...messages, newMessage])
+                }
+            })
+            socket.on('join_to_online', (newUser)=>{
+                setUsersOnline(users=>[...users, newUser])
+                console.log(newUser)
+            })
+        }
+        f()
+    }, []);
 
 
   return (
