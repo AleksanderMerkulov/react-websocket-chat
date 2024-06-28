@@ -2,12 +2,12 @@ import {createContext, useContext, useState} from "react";
 
 
 const SocketIOContext = createContext({
-    socket: '',
+    socket: {},
     messages: []
 })
 
 export default function SocketIOProvider({children}){
-    const [socket, setSocket] = useState('')
+    const [socket, setSocket] = useState({})
     const [messages, setMessages] = useState([])
     const [usersOnline, setUsersOnline] = useState([])
     return (

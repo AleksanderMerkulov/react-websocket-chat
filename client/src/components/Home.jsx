@@ -37,7 +37,7 @@ export default function Home(){
         e.preventDefault()
         localStorage.setItem('user', user)
         navigate('/chat')
-        socket.emit('join_to_chats', user)
+        socket.emit('join_to_chats', {user: user, socketID: socket.id})
     }
 
     return (

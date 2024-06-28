@@ -35,24 +35,21 @@ const Title = styled.h1`
 
 const Sidebar = () => {
 
-
-
-
     const {usersOnline} = useSocketIO()
+
+    let onlineList = []
 
     useEffect(() => {
         console.log('online',usersOnline)
-    }, []);
 
-    const onlineList = usersOnline.map((user, index)=><ChatItem key={`userOnline${index}`}>{user}</ChatItem>)
+    }, usersOnline);
+
+    onlineList = usersOnline.map((user, index)=><ChatItem key={`userOnline${index}`}>{user}</ChatItem>)
 
     return (
         <SidebarContainer>
             <Title>Ваши чаты</Title>
             <ChatContainer>
-                <ChatItem>user1</ChatItem>
-                <ChatItem>user2</ChatItem>
-                <ChatItem>user3</ChatItem>
                 {onlineList}
             </ChatContainer>
         </SidebarContainer>

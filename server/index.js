@@ -13,6 +13,8 @@ const socketIO = require('socket.io')(http, {
     }
 })
 
+const onlineUsers = []
+
 app.get('api', (req, res)=>{
     res.json({
         message: 'Hello'
@@ -20,6 +22,9 @@ app.get('api', (req, res)=>{
 })
 
 socketIO.on('connection', (socket)=>{
+
+    console.log(socket.id)
+
     socket.on('message', (message) => {
         console.log('message', message)
         socketIO.emit('response', message)
@@ -27,7 +32,8 @@ socketIO.on('connection', (socket)=>{
 
     socket.on('join_to_chats', (user)=>{
         console.log('user join', user)
-        socketIO.emit('join_to_online', user)
+        onlineUsers.push(user)
+        socketIO.emit('join_to_online', onlineUsers)
     })
 
     socket.on('disconnect', (socket)=>{

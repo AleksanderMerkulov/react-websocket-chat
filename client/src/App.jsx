@@ -56,7 +56,7 @@ function App() {
                 }
             })
             socket.on('join_to_online', (newUser)=>{
-                setUsersOnline(users=>[...users, newUser])
+                setUsersOnline(newUser)
                 console.log(newUser)
             })
         }
